@@ -96,7 +96,7 @@ users_{{ name }}_user:
     {% endif -%}
     {% if user.get('empty_password') -%}
     - empty_password: {{ user.get('empty_password') }}
-    {% endif -%}
+    {% endif %}
     {% if 'enforce_password' in user -%}
     - enforce_password: {{ user['enforce_password'] }}
     {% endif -%}
