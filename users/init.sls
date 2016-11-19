@@ -84,14 +84,14 @@ users_{{ name }}_user:
     {% if 'uid' in user -%}
     - uid: {{ user['uid'] }}
     {% endif -%}
-    {% if grains['kernel'].endswith('BSD') %}
+    {% if grains['kernel'].endswith('BSD') -%}
         {% if 'bsd_password' in user -%}
     - password: '{{ user['bsd_password'] }}'
-        {% endif %}
-    {% else %}
+        {% endif -%}
+    {% else -%}
         {% if 'password' in user -%}
     - password: '{{ user['password'] }}'
-        {% endif %}
+        {% endif -%}
     {% endif -%}
     {% if user.get('empty_password') -%}
     - empty_password: {{ user.get('empty_password') }}
