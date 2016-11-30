@@ -1,0 +1,27 @@
+#
+# ~/.bash_profile
+#
+# This file is controlled via Salt config management. Any changes
+# made directly to this file will be lost. Make changes to the
+# Salt configuration files and push changes to the server.
+#
+
+# Get locally defined aliases and functions
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+{% if grains['os_family'] == 'RedHat' -%}
+{% if grains['osrelease_info'][0] == 7 -%}
+PATH=$HOME/.local/bin:$HOME/bin:$PATH
+{% else -%}
+PATH=$HOME/bin:$PATH
+{% endif %}
+export PATH
+{% elif grains['os_family'] == 'OpenBSD' -%}
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin
+
+export PATH
+{% endif -%}
