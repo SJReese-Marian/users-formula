@@ -22,6 +22,10 @@ PATH=$HOME/bin:$PATH
 export PATH
 {% elif grains['os_family'] == 'OpenBSD' -%}
 PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin
-
-export PATH
+{% if pillar['region'] == 'us' -%}
+PKG_PATH=http://www.marianinc.com/Packages/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://openbsd.mirrors.pair.com/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://mirrors.gigenet.com/pub/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://mirrors.mit.edu/pub/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/
+{% elif pillar['region'] == 'asia' -%}
+PKG_PATH=http://www.marianinc.com/Packages/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://ftp.jaist.ac.jp/pub/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://mirror.rise.ph/pub/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/:http://openbsd.hk/pub/OpenBSD/{{ grains['os_release'] }}/packages/{{ grains['cpuarch'] }}/
+{% endif -%}
+export PATH PKG_PATH
 {% endif -%}
