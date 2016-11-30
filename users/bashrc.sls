@@ -21,6 +21,7 @@ users_{{ name }}_user_bashrc:
     - user: {{ name }}
     - group: {{ user_group }}
     - mode: 644
+    - template: jinja
     - source: 
       - salt://users/files/bashrc/{{ name }}/bashrc
       - salt://users/files/bashrc/bashrc
