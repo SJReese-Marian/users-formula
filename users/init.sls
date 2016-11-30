@@ -60,8 +60,8 @@ users_{{ name }}_user:
   {% if user.get('createhome', True) %}
   file.directory:
     - name: {{ home }}
-    - user: {{ name }}
-    - group: {{ user_group }}
+    - user: {{ user.get('homedir_owner', name) }}
+    - group: {{ user.get('homedir_group', user_group) }}
     - mode: {{ user.get('user_dir_mode', '0750') }}
     - require:
       - user: users_{{ name }}_user
@@ -485,7 +485,7 @@ users_{{ users.sudoers_dir }}/{{ name }}:
 {% for user in pillar.get('absent_users', []) %}
 users_absent_user_2_{{ user }}:
   user.absent:
-    - name: {{ name }}
+    - name: {{ user }}
 users_2_{{ users.sudoers_dir }}/{{ user }}:
   file.absent:
     - name: {{ users.sudoers_dir }}/{{ user }}
